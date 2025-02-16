@@ -4,7 +4,6 @@
         <div
             class="flex flex-col"
             :style="{
-                height: 'calc(100vh - 80px)',
                 width: isLargeBreakpoint ? 'calc(100vw - 200px)' : '100vw'
             }"
         >
@@ -21,33 +20,33 @@
                 :globalFilterFields="['created_by', 'formatted_visit_date', 'formatted_purpose', 'rating', 'interest_level', 'formatted_follow_up_required', 'formatted_next_action_date']"
             >
                 <template #header>
-                    <h2 class="text-xl font-medium mb-2">Filters</h2>
-                    <div class="flex items-center justify-between">
-                        <div class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded">
+                    <h2 class="text-xl font-medium mb-2 text-center md:text-start">Filters</h2>
+                    <div class="flex items-center justify-between flex-col md:flex-row">
+                        <div class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded flex-col md:flex-row w-full md:w-auto">
                             <IconField>
                                 <InputIcon>
                                     <i class="pi pi-search" />
                                 </InputIcon>
-                                <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                                <InputText fluid v-model="filters['global'].value" placeholder="Keyword Search" />
                             </IconField>
                             <div class="flex">
-                                <Select :options="users" optionLabel="name" optionValue="name" placeholder="Select a user..." v-model="filters['created_by']" />
+                                <Select fluid :options="users" optionLabel="name" optionValue="name" placeholder="Select a user..." v-model="filters['created_by']" />
                             </div>
                             <div class="flex items-center gap-2">
                                 <Checkbox v-model="filters['follow_up_required'].value" binary />
                                 <label for="follow-up-checkbox" class="dark:text-surface-400">Follow-Up Required</label>
                             </div>
                         </div>
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 flex-col md:flex-row w-full md:w-auto mt-3 md:mt-0">
                             <Link
                                 :href="route('office-visit.create')"
                             >
-                                <Button disabled label="Schedule a Visit" icon="pi pi-calendar" />
+                                <Button fluid disabled label="Schedule a Visit" icon="pi pi-calendar" />
                             </Link>
                             <Link
                                 :href="route('office-visit.create')"
                             >
-                                <Button label="Log a New Visit" icon="pi pi-map-marker" />
+                                <Button fluid label="Log a New Visit" icon="pi pi-map-marker" />
                             </Link>
                         </div>
                     </div>

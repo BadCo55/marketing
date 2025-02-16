@@ -22,29 +22,48 @@
                 :globalFilterFields="['status', 'formatted_date_created', 'formatted_due_date', 'title', 'formatted_assigned_to', 'formatted_created_by']"
             >
                 <template #header>
-                    <h2 class="text-xl font-medium mb-2">Filters</h2>
-                    <div class="flex items-center justify-between">
-                        <div class="flex flex-col lg:flex-row gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded">
-                            <div>
-                                <IconField>
-                                    <InputIcon>
-                                        <i class="pi pi-search" />
-                                    </InputIcon>
-                                    <InputText fluid v-model="filters['global'].value" placeholder="Filter Search" />
-                                </IconField>
+                        <h2
+                            class="text-xl font-medium mb-2"
+                            :class="{
+                                'text-center': !isLargeBreakpoint
+                            }"
+                        >Filters</h2>
+                        <div
+                            class="flex items-center justify-between"
+                            :class="{
+                                'flex-col': !isLargeBreakpoint
+                            }"
+                        >
+                            <div
+                                class="flex flex-col lg:flex-row gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded"
+                                :class="{
+                                    'w-full': !isLargeBreakpoint
+                                }"
+                            >
+                                <div>
+                                    <IconField>
+                                        <InputIcon>
+                                            <i class="pi pi-search" />
+                                        </InputIcon>
+                                        <InputText fluid v-model="filters['global'].value" placeholder="Filter Search" />
+                                    </IconField>
+                                </div>
+                                <div class="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
+                                    <Select fluid :options="statusOptions" v-model="filters['status'].value" optionLabel="label" optionValue="value" placeholder="Select a status..." />
+                                    <Select fluid :options="users" v-model="filters['assigned_to.id'].value" optionLabel="formatted_full_name" optionValue="id" placeholder="Select an assigned user..." />
+                                </div>
+                                <div class="flex items-center">
+                                    <Button :fluid="!isLargeBreakpoint" label="Clear Filters" @click="onClearFilters" />
+                                </div>
                             </div>
-                            <div class="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
-                                <Select fluid :options="statusOptions" v-model="filters['status'].value" optionLabel="label" optionValue="value" placeholder="Select a status..." />
-                                <Select fluid :options="users" v-model="filters['assigned_to.id'].value" optionLabel="formatted_full_name" optionValue="id" placeholder="Select an assigned user..." />
-                            </div>
-                            <div class="flex items-center">
-                                <Button label="Clear Filters" @click="onClearFilters" />
+                            <div
+                                :class="{
+                                    'w-full mt-3': !isLargeBreakpoint
+                                }"
+                            >
+                                <Button :fluid="!isLargeBreakpoint" label="Create Task" icon="pi pi-plus-circle" @click="showTaskDialog" />
                             </div>
                         </div>
-                        <div>
-                            <Button label="Create Task" icon="pi pi-plus-circle" @click="showTaskDialog" />
-                        </div>
-                    </div>
                 </template>
                 <template #empty> No tasks found. </template>
                 <Column header="ID" v-if="isLargeBreakpoint" field="id"></Column>

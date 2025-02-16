@@ -171,7 +171,7 @@
                         <i class="pi pi-bars text-4xl" />
                     </a>
                     <InputText placeholder="Search..." />
-                    <div>
+                    <div v-if="isLargeBreakpoint">
                         <Button
                             label="Create Task"
                             icon="pi pi-plus-circle"

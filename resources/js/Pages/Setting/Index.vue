@@ -2,13 +2,20 @@
     <Head title="Settings" />
     <Layout>
         <div class="root-container">
-            <div class="flex flex-col lg:flex-row gap-5">
-                <Menu :model="menuItems" class="self-start" />
+            <div class="flex flex-col md:flex-row gap-5">
+                <Menu :model="menuItems" class="self-start " />
+                <div
+                    class="flex flex-col"
+                    :style="{
+                        width: isLargeBreakpoint ? 'calc(100vw - 200px)' : '100vw',
+                    }"
+                >
                 <Card class="w-full">
                     <template #content>
                         <UsersTab :users="users" />
                     </template>
                 </Card>
+                </div>
             </div>
         </div>
     </Layout>

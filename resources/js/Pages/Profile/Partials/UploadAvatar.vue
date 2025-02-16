@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-5 items-center">
+    <div class="flex gap-5 items-center flex-col md:flex-row">
         <div>
             <img :src="user.avatar_url" class="rounded-full w-48 h-48">
         </div>

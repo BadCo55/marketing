@@ -19,31 +19,29 @@
                 :globalFilterFields="['first_name', 'last_name', 'phone_number', 'email', 'office.parent_company', 'office.office_name', 'office.street_address', 'office.city', 'office.zip_code']"
             >
                 <template #header>
-                    <h2 class="text-xl font-medium mb-2">Filters</h2>
-                    <div class="flex items-center justify-between">
-                        <div class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded">
-                            <div>
+                    <h2
+                        class="text-xl font-medium mb-2 text-center md:text-start"
+                    >Filters</h2>
+                    <div
+                        class="flex items-center justify-between flex-col md:flex-row"
+                    >
+                        <div
+                            class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded w-full md:w-auto"
+                        >
+                            <div class="w-full md:w-auto">
                                 <IconField>
                                     <InputIcon>
                                         <i class="pi pi-search" />
                                     </InputIcon>
-                                    <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                                    <InputText fluid v-model="filters['global'].value" placeholder="Keyword Search" />
                                 </IconField>
                             </div>
-                            <!-- <div class="flex gap-2 items-center">
-                                <Select :options="statusOptions" optionLabel="label" optionValue="value" placeholder="Select a status..." />
-                                <Select :options="users" optionLabel="name" optionValue="id" placeholder="Select an assigned user..." />
-                                <div class="flex items-center gap-1">
-                                    <Checkbox :binary="true"  />
-                                    <label for="">Has Due Date</label>
-                                </div>
-                            </div> -->
                         </div>
-                        <div>
+                        <div class="w-full md:w-auto mt-3 md:mt-0">
                             <Link
                                 :href="route('realtor.create')"
                             >
-                                <Button severity="primary" label="Create Realtor" icon="pi pi-plus-circle" />
+                                <Button fluid severity="primary" label="Create Realtor" icon="pi pi-plus-circle" />
                             </Link>
                         </div>
                     </div>
@@ -62,7 +60,7 @@
                 <Column field="formatted_full_name" header="Name" sortable></Column>
                 <Column field="phone_number" header="Phone #" sortable></Column>
                 <Column field="email" header="Email" sortable v-if="isLargeBreakpoint"></Column>
-                <Column header="Office">
+                <Column header="Office" v-if="isLargeBreakpoint">
                     <template #body="slotProps">
                         <div v-if="slotProps.data.office" class="flex flex-col">
                             <p class="font-bold">{{ slotProps.data.office.parent_company || 'N/A' }}</p>

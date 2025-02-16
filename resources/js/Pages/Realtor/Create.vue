@@ -1,12 +1,12 @@
 <template>
     <Head title="Create a Realtor" />
     <Layout>
-        <div class="flex justify-center p-8">
+        <div class="root-container">
             <Card>
                 <template #content>
                     <form @submit.prevent="submitForm">
                         <div class="flex">
-                            <div class="grid grid-cols-2 gap-5 w-full">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                 <div>
                                     <label for="first_name">First Name</label>
                                     <InputText :invalid="page.props.errors.first_name" fluid v-model="form.first_name" id="first_name" />
@@ -37,8 +37,8 @@
                                         @complete="filterOffices"
                                         :optionLabel="getLabel"
                                     />
-                                    <Button 
-                                        label="Or, Create a New Office" 
+                                    <Button
+                                        label="Or, Create a New Office"
                                         @click="openAddOfficeModal"
                                         variant="text"
                                         class="mt-1"
@@ -61,7 +61,7 @@
                         <div class="flex justify-center mt-5">
                             <Button label="Submit" type="submit" class="w-48"></Button>
                         </div>
-            
+
                         <!-- Add New Office Modal -->
                         <Dialog header="Add New Office" v-model:visible="isAddOfficeModalVisible" class="w-[35rem]">
                             <NewOfficeForm @updatedOffices="onNewOfficeSubmit"  />

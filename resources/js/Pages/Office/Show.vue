@@ -1,7 +1,7 @@
 <template>
     <Head :title="office.parent_company" />
     <Layout>
-        <div class="grid grid-cols-12 gap-5 p-8">
+        <div class="grid grid-cols-12 gap-5 p-2 md:p-8">
             <Card class="col-span-12 xl:col-span-4 mb-auto items-center">
                 <template #content>
                     <div class="flex items-center gap-5">
@@ -95,7 +95,7 @@
                                 <PerformanceTab :office="office" />
                             </TabPanel>
                             <TabPanel :value="4">
-                                <div class="flex gap-5">
+                                <div class="flex flex-col md:flex-col gap-5">
                                     <div class="flex-1">
                                         <form @submit.prevent="onOfficeNoteSubmit">
                                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">

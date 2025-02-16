@@ -1,89 +1,100 @@
 <template>
     <Head title="Offices" />
     <Layout>
-        <DataTable
-            v-model:filters="filters"
-            :value="offices"
-            removableSort
-            :scrollHeight="`calc(100vh - 260px)`"
-            class="w-full"
-            stripedRows
-            paginator
-            :rows="10"
-            :rowsPerPageOptions="[10, 25, 50, 100]"
-            :globalFilterFields="['parent_company', 'office_name', 'street_address']"
+        <div
+            class="flex flex-col"
+            :style="{
+                width: isLargeBreakpoint ? 'calc(100vw - 200px)' : '100vw',
+            }"
         >
-            <template #header>
-                <h2 class="text-xl font-medium mb-2">Filters</h2>
-                <div class="flex items-center justify-between">
-                    <div class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded">
-                        <div>
-                            <IconField>
-                                <InputIcon>
-                                    <i class="pi pi-search" />
-                                </InputIcon>
-                                <InputText
-                                    v-model="filters['global'].value"
-                                    placeholder="Keyword Search"
-                                />
-                            </IconField>
+            <DataTable
+                v-model:filters="filters"
+                :value="offices"
+                removableSort
+                :scrollHeight="getScrollHeight"
+                class="w-full"
+                stripedRows
+                paginator
+                :rows="10"
+                :rowsPerPageOptions="[10, 25, 50, 100]"
+                :globalFilterFields="['parent_company', 'office_name', 'street_address']"
+            >
+                <template #header>
+                    <h2 class="text-xl font-medium mb-2 text-center md:text-start">Filters</h2>
+                    <div class="flex items-center justify-between flex-col md:flex-row">
+                        <div class="flex gap-2 bg-surface-100 dark:bg-surface-800 p-2 rounded w-full md:w-auto">
+                            <div class="w-full md:w-auto">
+                                <IconField>
+                                    <InputIcon>
+                                        <i class="pi pi-search" />
+                                    </InputIcon>
+                                    <InputText
+                                        fluid
+                                        v-model="filters['global'].value"
+                                        placeholder="Keyword Search"
+                                    />
+                                </IconField>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 flex-col md:flex-row w-full md:w-auto mt-3 md:mt-0">
+                            <Button
+                                fluid
+                                :fluid="!isLargeBreakpoint"
+                                severity="primary"
+                                label="Upload Office Data"
+                                icon="pi pi-file-arrow-up"
+                                @click="isUploadDialogVisible = true"
+                            />
+                            <Button
+                                fluid
+                                severity="primary"
+                                label="Create Office"
+                                @click="isAddOfficeModalVisible = true"
+                                icon="pi pi-plus-circle"
+                            />
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <Button
-                            severity="primary"
-                            label="Upload Office Data"
-                            icon="pi pi-file-arrow-up"
-                            @click="isUploadDialogVisible = true"
-                        />
-                        <Button
-                            severity="primary"
-                            label="Create Office"
-                            @click="isAddOfficeModalVisible = true"
-                            icon="pi pi-plus-circle"
-                        />
-                    </div>
-                </div>
-            </template>
-            <template #empty> No offices found. </template>
-            <template #loading> Loading office data. Please wait. </template>
-            <!-- <Column field="id" header="ID" sortable class="font-bold"></Column> -->
-            <Column v-if="isLargeBreakpoint">
-                <template #body="slotProps">
-                    <div class="flex flex-col items-center gap-2 justify-center">
-                            <img :src="slotProps.data.image_url" class="w-20 rounded-lg" />
-                            <Tag :value="slotProps.data.status" :severity="getTagSeverity(slotProps.data.status)" />
+                </template>
+                <template #empty> No offices found. </template>
+                <template #loading> Loading office data. Please wait. </template>
+                <!-- <Column field="id" header="ID" sortable class="font-bold"></Column> -->
+                <Column v-if="isLargeBreakpoint">
+                    <template #body="slotProps">
+                        <div class="flex flex-col items-center gap-2 justify-center">
+                                <img :src="slotProps.data.image_url" class="w-20 rounded-lg" />
+                                <Tag :value="slotProps.data.status" :severity="getTagSeverity(slotProps.data.status)" />
+                            </div>
+                    </template>
+                </Column>
+                <Column field="parent_company" header="Company" sortable></Column>
+                <Column v-if="isLargeBreakpoint" field="office_name" header="Office Name" sortable></Column>
+                <Column v-if="isLargeBreakpoint" field="office_phone" header="Phone #" sortable></Column>
+                <Column class="w-full" header="Address" sortable>
+                    <template #body="slotProps">
+                        <div class="flex flex-col">
+                            <p class="font-bold">
+                                {{ slotProps.data.street_address }}
+                                <span v-if="slotProps.data.unit_number">{{
+                                    '#' + slotProps.data.unit_number
+                                }}</span>
+                            </p>
+                            <p>
+                                {{ slotProps.data.city }}, {{ slotProps.data.state }}
+                                {{ slotProps.data.zip_code }}
+                            </p>
+                            <p>{{ slotProps.data.county }}</p>
                         </div>
-                </template>
-            </Column>
-            <Column field="parent_company" header="Company" sortable></Column>
-            <Column field="office_name" header="Office Name" sortable></Column>
-            <Column field="office_phone" header="Phone #" sortable></Column>
-            <Column header="Address" sortable>
-                <template #body="slotProps">
-                    <div class="flex flex-col">
-                        <p class="font-bold">
-                            {{ slotProps.data.street_address }}
-                            <span v-if="slotProps.data.unit_number">{{
-                                '#' + slotProps.data.unit_number
-                            }}</span>
-                        </p>
-                        <p>
-                            {{ slotProps.data.city }}, {{ slotProps.data.state }}
-                            {{ slotProps.data.zip_code }}
-                        </p>
-                        <p>{{ slotProps.data.county }}</p>
-                    </div>
-                </template>
-            </Column>
-            <Column class="w-24 !text-center">
-                <template #body="{ data }">
-                    <Link :href="route('office.show', data.id)">
-                        <Button icon="pi pi-search" severity="primary" rounded></Button>
-                    </Link>
-                </template>
-            </Column>
-        </DataTable>
+                    </template>
+                </Column>
+                <Column class="!text-center">
+                    <template #body="{ data }">
+                        <Link :href="route('office.show', data.id)">
+                            <Button icon="pi pi-search" severity="primary" rounded></Button>
+                        </Link>
+                    </template>
+                </Column>
+            </DataTable>
+        </div>
     </Layout>
     <!-- Add New Office Modal -->
     <Dialog header="Add New Office" v-model:visible="isAddOfficeModalVisible" class="w-[35rem]">
@@ -108,7 +119,7 @@ import {
     Tag
 } from 'primevue'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const page = usePage()
 const offices = ref(page.props.offices)
@@ -161,4 +172,12 @@ const getTagSeverity = (status) => {
     }
     return 'info';
 }
+
+const getScrollHeight = computed(() => {
+    if (!isLargeBreakpoint) {
+        return 'calc(100vh - 600px)'
+    } else {
+        return 'calc(100vh - 250px)'
+    }
+})
 </script>

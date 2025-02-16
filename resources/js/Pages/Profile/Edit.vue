@@ -39,7 +39,7 @@ console.log(page.props);
                     </template>
                 </Card>
             </div>
-            <div class="flex gap-5 mb-5">
+            <div class="flex flex-col md:flex-row gap-5 mb-5">
                 <Card class="w-full self-start">
                     <template #content>
                         <UpdateProfileInformationForm
