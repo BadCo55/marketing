@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    label {
+        @apply text-surface-600 dark:text-surface-500 text-sm;
+    }
+    .root-container {
+        @apply p-8
+    }
+}
+
+.p-dialog-mask {
+    backdrop-filter: blur(5px); /* Adjust blur intensity */
+    background-color: rgba(0, 0, 0, 0.4); /* Optional: dark overlay */
+}
+
+/* Ensure smooth transitions */
+.p-dialog-mask::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px); /* Same blur intensity */
+}
+
