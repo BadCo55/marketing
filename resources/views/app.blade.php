@@ -7,7 +7,7 @@
 
         <title inertia>{{ config('app.name', 'Diversified Home Inspections') }}</title>
 
-        <script src="http://localhost:8098"></script>
+        {{-- <script src="http://localhost:8098"></script> --}}
 
         <!-- Scripts -->
         @routes
