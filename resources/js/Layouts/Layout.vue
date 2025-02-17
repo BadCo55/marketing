@@ -339,8 +339,8 @@ import OverlayBadge from 'primevue/overlaybadge'
 import Popover from 'primevue/popover'
 import NewTaskDialog from '@/Components/NewTaskDialog.vue'
 import { Link, usePage, router } from '@inertiajs/vue3'
-import { useToast, Toast, Button, Divider, Drawer } from 'primevue'
-import { watch, reactive, onMounted, ref, computed } from 'vue'
+import { useToast, Toast, Button, Divider } from 'primevue'
+import { watch, reactive, onMounted, ref, computed, onUnmounted } from 'vue'
 import { useAppStore } from '@/Store/appStore'
 
 const page = usePage()
@@ -477,4 +477,21 @@ const incompleteTasksCount = incompleteTasks.length
 const isActiveRoute = (routeName) => {
     return route().current(routeName)
 }
+
+// Detect if the screen is at least a large breakpoint (lg)
+const isLargeBreakpoint = ref(false)
+
+const checkBreakpoint = () => {
+    isLargeBreakpoint.value = window.innerWidth >= 1024 // lg breakpoint in Tailwind
+}
+
+onMounted(() => {
+    checkBreakpoint() // Initial check
+    window.addEventListener('resize', checkBreakpoint) // Update on resize
+})
+
+// Clean up the event listener on component unmount
+onUnmounted(() => {
+    window.removeEventListener('resize', checkBreakpoint)
+})
 </script>

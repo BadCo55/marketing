@@ -65,7 +65,7 @@
 import Layout from '@/Layouts/Layout.vue';
 import { Head, usePage, Link } from '@inertiajs/vue3';
 import { DataTable, Button, Column, IconField, InputText, InputIcon, Select, Checkbox } from 'primevue';
-import { reactive } from 'vue';
+import { reactive, onMounted, onUnmounted, ref } from 'vue';
 
 const page = usePage();
 const sequences = page.props.sequences;
@@ -73,4 +73,21 @@ const sequences = page.props.sequences;
 const filters = reactive({
     global: { value: null }, // Global filter for all searchable fields
 });
+
+// Detect if the screen is at least a large breakpoint (lg)
+const isLargeBreakpoint = ref(false)
+
+const checkBreakpoint = () => {
+    isLargeBreakpoint.value = window.innerWidth >= 1024 // lg breakpoint in Tailwind
+}
+
+onMounted(() => {
+    checkBreakpoint() // Initial check
+    window.addEventListener('resize', checkBreakpoint) // Update on resize
+})
+
+// Clean up the event listener on component unmount
+onUnmounted(() => {
+    window.removeEventListener('resize', checkBreakpoint)
+})
 </script>
