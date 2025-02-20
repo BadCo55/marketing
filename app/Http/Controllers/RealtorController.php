@@ -89,7 +89,7 @@ class RealtorController extends Controller
         // Format values as $0.00
         $formattedTotalValue = '$' . number_format($totalValue, 2);
         $formattedAverageValue = '$' . number_format($averageValue, 2);
-        $realtor['previous_inspections'] = $previousInspections['inspections'] ? $previousInspections['inspections'] : [];
+        $realtor['previous_inspections'] = $previousInspections['inspections'] ?? [];
         $realtor = Realtor::create($realtor);
         return redirect()->route('realtor.show', $realtor->id)->with('success', 'Realtor was created successfully!');
     }
