@@ -131,6 +131,7 @@ const stepTypeOptions = [
     'In-Person Visit',
     'Email',
     'Phone Call',
+    'Text Message',
     'Snail Mail',
     'Social Media Interaction'
 ];
