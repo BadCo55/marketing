@@ -25,12 +25,10 @@
                             </div>
                             <div class="flex-1">
                                 <p class="font-bold text-xl ms-2 mb-2">Template</p>
-                                <div class="border rounded p-3">
-                                    {{ step.template ? step.template : 'No template found.' }}
-                                </div>
+                                <div v-html="step.template || 'No template found.'" class="border rounded p-3"></div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </template>
             </Card>
         </div>
