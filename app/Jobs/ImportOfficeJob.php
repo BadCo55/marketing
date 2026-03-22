@@ -33,6 +33,8 @@ class ImportOfficeJob implements ShouldQueue
     {
         $googleResponse = $this->fetchGooglePlaceDetails($this->fullAddress);
 
+        logger()->info('hello');
+
         // Skip if Google API fails
         if (!$googleResponse['place_id']) {
             logger()->error("Failed to find Google Place ID", [
