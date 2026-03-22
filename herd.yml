@@ -1,0 +1,5 @@
+integrations:
+  forge:
+    marketing.dhi-portal.net:
+      server-id: 1180358
+      site-id: 3095193
