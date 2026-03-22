@@ -82,7 +82,7 @@ class ImportOfficeJob implements ShouldQueue
             'key' => $apiKey,
         ])->json();
 
-        logger()->info('Google FindPlace Response', [
+        logger()->error('Google FindPlace Response', [
             'address' => $address,
             'api_key_exists' => !empty($apiKey),
             'response' => $response,
