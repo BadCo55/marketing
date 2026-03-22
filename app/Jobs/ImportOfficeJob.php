@@ -83,6 +83,12 @@ class ImportOfficeJob implements ShouldQueue
             'key' => $apiKey,
         ])->json();
 
+        logger()->info('Google FindPlace Response', [
+            'address' => $address,
+            'api_key_exists' => !empty($apiKey),
+            'response' => $response,
+        ]);
+
         if (!empty($response['candidates'])) {
             $placeId = $response['candidates'][0]['place_id'];
             return $this->fetchPlaceDetails($placeId, $apiKey);
