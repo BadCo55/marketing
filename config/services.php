@@ -35,6 +35,10 @@ return [
         ],
     ],
 
+    'google_maps' => [
+        'key' => env('GOOGLE_MAPS_API_KEY')
+    ]
+
     // 'vonage' => [
     //     'api_key' => env('VONAGE_API_KEY'),
     //     'api_secret' => env('VONAGE_API_SECRET'),

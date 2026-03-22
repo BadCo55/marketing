@@ -73,7 +73,7 @@ class ImportOfficeJob implements ShouldQueue
      */
     private function fetchGooglePlaceDetails($address)
     {
-        $apiKey = env('VITE_GOOGLE_API_KEY');
+        $apiKey = config('services.google_maps.key');
         $url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json";
 
         $response = Http::get($url, [
