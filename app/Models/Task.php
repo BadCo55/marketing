@@ -19,6 +19,8 @@ class Task extends Model
         'status',
         'created_by',
         'priority',
+        'taskable_id',
+        'taskable_type',
     ];
 
     protected $appends = ['formatted_description', 'formatted_status', 'formatted_due_date', 'formatted_created_at', 'is_passed_due', 'is_due_today', 'has_due_date'];
@@ -62,7 +64,7 @@ class Task extends Model
         }
         return false; // Return false if no due date is set
     }
-    
+
     public function getIsDueTodayAttribute()
     {
         if ($this->due_date) {
@@ -74,9 +76,9 @@ class Task extends Model
     public function getHasDueDateAttribute()
     {
         if ($this->due_date) {
-            return true; 
+            return true;
         } else {
-            return false; 
+            return false;
         }
     }
 

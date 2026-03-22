@@ -16,27 +16,27 @@ import { createPinia } from 'pinia';
 const appName = import.meta.env.VITE_APP_NAME || 'Diversified Home Inspections';
 const pinia = createPinia();
 
-const loadGoogleMapsAPI = () => {
-    const googleMapsKey = import.meta.env.VITE_GOOGLE_API_KEY;
+// const loadGoogleMapsAPI = () => {
+//     const googleMapsKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
-    if (!googleMapsKey) {
-        console.error('Google Maps API key is missing.');
-        return;
-    }
+//     if (!googleMapsKey) {
+//         console.error('Google Maps API key is missing.');
+//         return;
+//     }
 
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsKey}&libraries=places&loading=async`;
-    script.async = true;
-    script.defer = true;
+//     const script = document.createElement('script');
+//     script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsKey}&libraries=places&loading=async`;
+//     script.async = true;
+//     script.defer = true;
 
-    document.head.appendChild(script);
+//     document.head.appendChild(script);
 
-    script.onerror = () => {
-        console.error('Error loading Google Maps API');
-    }
-}
+//     script.onerror = () => {
+//         console.error('Error loading Google Maps API');
+//     }
+// }
 
-loadGoogleMapsAPI();
+// loadGoogleMapsAPI();
 
 const stylePreset = definePreset(Aura, {
     primitive: {

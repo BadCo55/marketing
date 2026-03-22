@@ -34,9 +34,7 @@ class TaskController extends Controller
     {
         return inertia(
             'Task/Create',
-            [
-
-            ]
+            []
         );
     }
 
@@ -48,7 +46,11 @@ class TaskController extends Controller
         $validated = $request->validated();
         DB::beginTransaction();
         try {
-            Task::create($validated);
+            Task::create([
+                ...$validated,
+                'taskable_type' => null,
+                'taskable_id'   => null,
+            ]);
             DB::commit();
             return back()->with([
                 'success' => 'The task was created successfully!',
@@ -100,9 +102,7 @@ class TaskController extends Controller
     {
         return inertia(
             'Task/Edit',
-            [
-
-            ]
+            []
         );
     }
 

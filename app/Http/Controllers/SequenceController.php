@@ -34,7 +34,7 @@ class SequenceController extends Controller
     public function create()
     {
         return inertia(
-            'Sequence/Create', 
+            'Sequence/Create',
             [
 
             ],
@@ -62,7 +62,9 @@ class SequenceController extends Controller
                 SequenceStep::create($step);
             };
             DB::commit();
-            return back()->with('success', 'The sequence was created successfully!');
+            return redirect()
+                ->route('sequence.show', $sequence)
+                ->with('success', 'The sequence was created successfully.');
         } catch (\Exception $error) {
             DB::rollback();
             Log::error('There was an error creating a sequence.', [
@@ -92,7 +94,12 @@ class SequenceController extends Controller
      */
     public function edit(Sequence $sequence)
     {
-        //
+        return inertia(
+            'Sequence/Edit',
+            [
+                'sequence' => $sequence->load('steps')
+            ]
+        );
     }
 
     /**
@@ -100,7 +107,32 @@ class SequenceController extends Controller
      */
     public function update(UpdateSequenceRequest $request, Sequence $sequence)
     {
-        //
+        $validated = $request->validated();
+
+        DB::transaction(function () use ($validated, $sequence) {
+            // CHANGED: Updated the main sequence record.
+            $sequence->update([
+                'name' => $validated['name'],
+                'description' => $validated['description'] ?? null,
+                'target_audience' => $validated['target_audience'] ?? null,
+            ]);
+
+            // CHANGED: Removed existing steps so the submitted order becomes the source of truth.
+            $sequence->steps()->delete();
+
+            // CHANGED: Rebuilt the steps in the exact order submitted from the form.
+            foreach (($validated['steps'] ?? []) as $index => $step) {
+                $sequence->steps()->create([
+                    'type' => $step['type'],
+                    'interval' => $step['interval'] ?? 0,
+                    'description' => $step['description'] ?? null,
+                    'template' => $step['template'] ?? null,
+                    'step_number' => $step['step_number'] ?? ($index + 1),
+                ]);
+            }
+        });
+
+        return back()->with('success', 'Sequence updated successfully.');
     }
 
     /**
@@ -108,6 +140,11 @@ class SequenceController extends Controller
      */
     public function destroy(Sequence $sequence)
     {
-        //
+        // CHANGED: Delete the sequence (steps will cascade delete automatically)
+        $sequence->delete();
+
+        return redirect()
+            ->route('sequence.index')
+            ->with('success', 'Sequence deleted successfully.');
     }
 }

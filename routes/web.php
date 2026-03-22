@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
+// use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
@@ -13,12 +13,16 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SequenceController;
 use App\Http\Controllers\TaskNoteController;
 use App\Http\Controllers\OfficeNoteController;
+use App\Http\Controllers\OfficeRouteController;
+use App\Http\Controllers\OfficeRouteRunController;
+use App\Http\Controllers\OfficeRouteRunStopController;
 use App\Http\Controllers\OfficeVisitController;
 use App\Http\Controllers\RealtorCommunicationLogController;
 use App\Http\Controllers\RealtorNoteController;
 use App\Http\Controllers\RealtorSequenceController;
 use App\Http\Controllers\RealtorSequenceStepNoteController;
 use App\Http\Controllers\ReportController;
+
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -58,6 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('/realtor-note', RealtorNoteController::class);
     Route::resource('/office-note', OfficeNoteController::class);
     Route::resource('/office-visit', OfficeVisitController::class);
+    Route::resource('/office-route', OfficeRouteController::class);
+    Route::get('/office-route/{office_route}/start', [OfficeRouteRunController::class, 'start'])->name('office-run.start');
+    Route::get('/office-runs/{office_route_run}/active', [OfficeRouteRunController::class, 'active'])->name('office-run.active');
+    Route::resource('/office-run', OfficeRouteRunController::class);
+    Route::resource('/office-run-stop', OfficeRouteRunStopController::class);
     Route::resource('task', TaskController::class);
     Route::resource('/settings', SettingController::class);
     Route::resource('/user', UserController::class);
@@ -81,7 +90,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/reports/generate-today', [ReportController::class, 'generateTodaysReport'])->name('reports.generate.today');
     Route::post('/reports/generate-report', [ReportController::class, 'generateReportByDateRange'])->name('reports.generate-report');
     Route::post('/reports/{report}/sync', [ReportController::class, 'syncReport'])->name('reports.sync');
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('assigned_to')->constrained('users')->onDelete('cascade'); // Assign task to a user
             $table->date('due_date')->nullable(); // Optional due date for the task
             $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending'); // Task status
-            $table->morphs('taskable');
+            $table->nullableMorphs('taskable');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade'); // Assign task to a user
             $table->timestamps();
         });
