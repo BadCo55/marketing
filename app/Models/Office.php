@@ -135,7 +135,7 @@ class Office extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? Storage::url($this->image) : '/storage/avatars/default-company.png';
+        return $this->image ? Storage::url($this->image) : '/avatars/default-company.png';
     }
 
     public function getRealtorCountAttribute()
