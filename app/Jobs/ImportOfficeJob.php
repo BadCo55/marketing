@@ -31,6 +31,8 @@ class ImportOfficeJob implements ShouldQueue
      */
     public function handle(): void
     {
+
+    
         $googleResponse = $this->fetchGooglePlaceDetails($this->fullAddress);
 
         logger()->error('hello');
