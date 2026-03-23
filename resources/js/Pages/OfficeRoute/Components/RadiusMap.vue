@@ -406,7 +406,7 @@ const createMap = (lat, lng) => {
         fullscreenControl: true,
     })
 
-    centerMarker = new googleMapsApi.Marker({
+    centerMarker = new googleMapsApi.AdvancedMarkerElement({
         position: initialCenter,
         map,
         draggable: true,
@@ -487,7 +487,7 @@ const renderOfficeMarkers = () => {
     clearOfficeMarkers()
 
     officeMarkers = normalizedOffices.value.map((office) => {
-        const marker = new googleMapsApi.Marker({
+        const marker = new googleMapsApi.AdvancedMarkerElement({
             position: {
                 lat: office.latitude,
                 lng: office.longitude,

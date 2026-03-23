@@ -106,7 +106,7 @@ class UserController extends Controller
                 'avatar' => 'required|image|max:1024',
             ]);
             $user = User::findOrFail($id);
-            // Delete the old avatar if it exists
+            // Delete the old avatar if it exists  
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }

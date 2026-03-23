@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submitForm" class="space-y-6">
-        <!-- CHANGED: Dark-mode-safe top error block -->
+        <!-- CHANGED: Kept the top error block and left it tied to latitude/longitude validation -->
         <div class="mt-1" v-if="form.errors.latitude || form.errors.longitude">
             <Message severity="error" :closable="false">
                 <p
@@ -20,10 +20,9 @@
             </Message>
         </div>
 
-        <!-- CHANGED: Added dark mode border/background/text styles -->
+        <!-- CHANGED: Kept office information card layout unchanged -->
         <div class="rounded-2xl border border-surface-200 dark:border-surface-800 bg-white dark:bg-surface-900 p-5 shadow-sm">
             <div class="mb-5">
-                <!-- CHANGED: Dark mode text -->
                 <h3 class="text-base font-semibold text-surface-900 dark:text-surface-0">Office Information</h3>
                 <p class="mt-1 text-sm text-surface-500 dark:text-surface-400">
                     Enter the main office details for this brokerage location.
@@ -32,7 +31,6 @@
 
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="parent_company" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Parent Company</label>
                     <InputText
                         id="parent_company"
@@ -53,7 +51,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="office_name" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Office Name</label>
                     <InputText
                         id="office_name"
@@ -74,7 +71,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="office_phone" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Office Phone #</label>
                     <InputMask
                         id="office_phone"
@@ -96,7 +92,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="office_email" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Office Email</label>
                     <InputText
                         id="office_email"
@@ -117,7 +112,6 @@
                 </div>
 
                 <div class="lg:col-span-2">
-                    <!-- CHANGED: Dark mode label -->
                     <label for="website" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Website</label>
                     <InputText
                         id="website"
@@ -139,27 +133,25 @@
             </div>
         </div>
 
-        <!-- CHANGED: Added dark mode border/background/text styles -->
+        <!-- CHANGED: Kept office address section but wired Street Address input to a ref for Google autocomplete -->
         <div class="rounded-2xl border border-surface-200 dark:border-surface-800 bg-white dark:bg-surface-900 p-5 shadow-sm">
             <div class="mb-5">
-                <!-- CHANGED: Dark mode text -->
                 <h3 class="text-base font-semibold text-surface-900 dark:text-surface-0">Office Address</h3>
                 <p class="mt-1 text-sm text-surface-500 dark:text-surface-400">
                     Start typing the street address and select the matching suggestion from Google.
                 </p>
             </div>
 
-            <!-- CHANGED: Added dark mode styling to helper banner -->
             <div class="mb-5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30 px-4 py-3 text-sm text-blue-900 dark:text-blue-200">
                 Selecting a suggested address will auto-fill the city, state, county, ZIP code, latitude, longitude, and help prevent duplicates.
             </div>
 
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="street_address" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Street Address</label>
                     <InputText
                         id="street_address"
+                        ref="streetAddressInput"
                         v-model="form.street_address"
                         fluid
                         placeholder="Start typing address..."
@@ -177,7 +169,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="unit_number" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Unit #</label>
                     <InputText
                         id="unit_number"
@@ -198,7 +189,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="city" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">City</label>
                     <InputText
                         id="city"
@@ -218,7 +208,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="state" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">State</label>
                     <InputText
                         id="state"
@@ -238,7 +227,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="county" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">County</label>
                     <InputText
                         id="county"
@@ -258,7 +246,6 @@
                 </div>
 
                 <div>
-                    <!-- CHANGED: Dark mode label -->
                     <label for="zip_code" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Zip Code</label>
                     <InputText
                         id="zip_code"
@@ -279,10 +266,9 @@
             </div>
         </div>
 
-        <!-- CHANGED: Added dark mode border/background/text styles -->
+        <!-- CHANGED: Kept additional details section unchanged -->
         <div class="rounded-2xl border border-surface-200 dark:border-surface-800 bg-white dark:bg-surface-900 p-5 shadow-sm">
             <div class="mb-5">
-                <!-- CHANGED: Dark mode text -->
                 <h3 class="text-base font-semibold text-surface-900 dark:text-surface-0">Additional Details</h3>
                 <p class="mt-1 text-sm text-surface-500 dark:text-surface-400">
                     Store internal notes that may help with future office visits or outreach.
@@ -290,7 +276,6 @@
             </div>
 
             <div>
-                <!-- CHANGED: Dark mode label -->
                 <label for="notes" class="mb-2 block text-sm font-medium text-surface-700 dark:text-surface-200">Notes</label>
                 <Textarea
                     id="notes"
@@ -313,7 +298,6 @@
             </div>
         </div>
 
-        <!-- CHANGED: Added dark mode-friendly footer spacing only; buttons already inherit theme -->
         <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <Button
                 label="Reset"
@@ -334,11 +318,12 @@
 </template>
 
 <script setup>
-import { InputText, Button, InputMask, Message, Textarea } from 'primevue';
-import { onMounted, onBeforeUnmount } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { InputText, Button, InputMask, Message, Textarea } from 'primevue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { useForm } from '@inertiajs/vue3'
+import { loadGoogleMapsAPI } from '@/lib/loadGoogleMapsApi'
 
-const emit = defineEmits(['updatedOffices']);
+const emit = defineEmits(['updatedOffices'])
 
 const form = useForm({
     parent_company: '',
@@ -356,140 +341,160 @@ const form = useForm({
     longitude: '',
     place_id: '',
     notes: '',
-});
+})
 
-let autocomplete = null;
-let placeChangedListener = null;
+/* CHANGED: Added a template ref so autocomplete attaches to the actual rendered input */
+const streetAddressInput = ref(null)
+
+/* CHANGED: Kept references for autocomplete instance and listener cleanup */
+let autocomplete = null
+let placeChangedListener = null
 
 const submitForm = () => {
     form.post(route('office.store'), {
         only: ['offices', 'flash'],
         preserveScroll: true,
         onSuccess: (response) => {
-            const newOffices = response.props.offices;
-            emit('updatedOffices', newOffices);
-            form.reset();
-            form.clearErrors();
+            const newOffices = response.props.offices
+            emit('updatedOffices', newOffices)
+            form.reset()
+            form.clearErrors()
         },
         onError: () => {
         }
-    });
-};
+    })
+}
 
-onMounted(() => {
-    const waitForGoogleMaps = new Promise((resolve) => {
-        const checkGoogleMaps = () => {
-            if (
-                typeof google !== 'undefined' &&
-                typeof google.maps !== 'undefined' &&
-                typeof google.maps.places !== 'undefined'
-            ) {
-                resolve();
-            } else {
-                setTimeout(checkGoogleMaps, 100);
-            }
-        };
+/* CHANGED: Added helper to safely resolve the real input element from PrimeVue InputText */
+const getNativeInputElement = () => {
+    const instance = streetAddressInput.value
 
-        checkGoogleMaps();
-    });
+    if (!instance) return null
 
-    waitForGoogleMaps
-        .then(() => {
-            const input = document.getElementById('street_address');
-            if (!input) {
-                console.error('Input element is not rendered in the DOM.');
-                return;
-            }
+    if (instance.$el instanceof HTMLInputElement) {
+        return instance.$el
+    }
 
-            autocomplete = new google.maps.places.Autocomplete(input, {
-                types: ['address'],
-                componentRestrictions: { country: 'us' },
-                fields: ['address_components', 'geometry', 'place_id'],
-            });
+    return instance.$el?.querySelector?.('input') ?? null
+}
 
-            placeChangedListener = autocomplete.addListener('place_changed', () => {
-                const place = autocomplete.getPlace();
+onMounted(async () => {
+    try {
+        /* CHANGED: Replaced the manual polling loop with the shared Google Maps loader */
+        await loadGoogleMapsAPI()
 
-                if (place.geometry?.location) {
-                    form.latitude = place.geometry.location.lat();
-                    form.longitude = place.geometry.location.lng();
-                }
+        const input = getNativeInputElement()
 
-                form.place_id = place.place_id ?? '';
+        if (!input) {
+            console.error('Street address input element is not rendered in the DOM.')
+            return
+        }
 
-                if (place.address_components) {
-                    extractAddressComponents(place.address_components);
-                }
-            });
+        /* CHANGED: Initialized Google Places Autocomplete using the shared loader result */
+        autocomplete = new window.google.maps.places.Autocomplete(input, {
+            types: ['address'],
+            componentRestrictions: { country: 'us' },
+            fields: ['address_components', 'geometry', 'place_id', 'formatted_address'],
         })
-        .catch((error) => {
-            console.error('Error loading Google Maps API:', error);
-        });
-});
+
+        /* CHANGED: Stored listener reference so it can be removed on unmount */
+        placeChangedListener = autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace()
+
+            if (!place) return
+
+            /* CHANGED: Reset derived location fields before repopulating from selected place */
+            form.latitude = ''
+            form.longitude = ''
+            form.place_id = place.place_id ?? ''
+            form.street_address = ''
+            form.city = ''
+            form.state = ''
+            form.county = ''
+            form.zip_code = ''
+
+            /* CHANGED: Captured geometry when present */
+            if (place.geometry?.location) {
+                form.latitude = place.geometry.location.lat()
+                form.longitude = place.geometry.location.lng()
+            }
+
+            /* CHANGED: Populated address fields from Google address components */
+            if (place.address_components?.length) {
+                extractAddressComponents(place.address_components)
+            }
+
+            /* CHANGED: Fell back to formatted_address when street parsing does not produce a value */
+            if (!form.street_address && place.formatted_address) {
+                form.street_address = place.formatted_address
+            }
+        })
+    } catch (error) {
+        console.error('Error loading Google Maps API:', error)
+    }
+})
 
 onBeforeUnmount(() => {
-    if (
-        placeChangedListener &&
-        typeof google !== 'undefined' &&
-        google.maps?.event
-    ) {
-        google.maps.event.removeListener(placeChangedListener);
+    /* CHANGED: Cleaned up the Google Maps event listener */
+    if (placeChangedListener && window.google?.maps?.event) {
+        window.google.maps.event.removeListener(placeChangedListener)
     }
-});
+
+    autocomplete = null
+    placeChangedListener = null
+})
 
 const extractAddressComponents = (components) => {
-    const componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'short_name',
-        postal_code: 'short_name',
-        administrative_area_level_2: 'long_name',
-    };
+    /* CHANGED: Reworked parsing so street number + route are combined more safely */
+    let streetNumber = ''
+    let route = ''
 
-    form.street_address = '';
-    form.city = '';
-    form.state = '';
-    form.zip_code = '';
-    form.county = '';
+    form.street_address = ''
+    form.city = ''
+    form.state = ''
+    form.zip_code = ''
+    form.county = ''
 
     components.forEach((component) => {
-        const addressType = component.types[0];
+        const types = component.types || []
 
-        if (componentForm[addressType]) {
-            const value = component[componentForm[addressType]];
-
-            switch (addressType) {
-                case 'street_number':
-                    form.street_address = value + ' ' + form.street_address;
-                    break;
-                case 'route':
-                    form.street_address += value;
-                    break;
-                case 'locality':
-                    form.city = value;
-                    break;
-                case 'administrative_area_level_1':
-                    form.state = value;
-                    break;
-                case 'postal_code':
-                    form.zip_code = value;
-                    break;
-                case 'administrative_area_level_2':
-                    form.county = value;
-                    break;
-            }
+        if (types.includes('street_number')) {
+            streetNumber = component.short_name || ''
         }
-    });
-};
+
+        if (types.includes('route')) {
+            route = component.long_name || ''
+        }
+
+        if (types.includes('locality')) {
+            form.city = component.long_name || ''
+        }
+
+        if (types.includes('administrative_area_level_1')) {
+            form.state = component.short_name || ''
+        }
+
+        if (types.includes('postal_code')) {
+            form.zip_code = component.short_name || ''
+        }
+
+        if (types.includes('administrative_area_level_2')) {
+            form.county = component.long_name || ''
+        }
+    })
+
+    /* CHANGED: Combined street number and route after the loop to avoid partial ordering issues */
+    form.street_address = [streetNumber, route].filter(Boolean).join(' ').trim()
+}
 
 const resetForm = () => {
-    form.reset();
-    form.clearErrors();
-};
+    form.reset()
+    form.clearErrors()
+}
 </script>
 
 <style>
+/* CHANGED: Kept pac-container on top of dialogs and overlays */
 .pac-container {
     z-index: 9999;
 }
