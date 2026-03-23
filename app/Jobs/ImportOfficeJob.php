@@ -31,11 +31,7 @@ class ImportOfficeJob implements ShouldQueue
      */
     public function handle(): void
     {
-
-    
         $googleResponse = $this->fetchGooglePlaceDetails($this->fullAddress);
-
-        logger()->error('hello');
 
         // Skip if Google API fails
         if (!$googleResponse['place_id']) {
@@ -78,6 +74,10 @@ class ImportOfficeJob implements ShouldQueue
     {
         $apiKey = config('services.google_maps.key');
         $url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json";
+
+        logger()->error('API KEY', [
+            'key' => $apiKey
+        ]);
 
         $response = Http::get($url, [
             'input' => $address,
