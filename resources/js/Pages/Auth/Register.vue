@@ -1,69 +1,171 @@
 <template>
     <GuestLayout>
         <Head title="Register" />
-        <Card class="w-[35rem]">
-            <template #title>
-                <div class="flex mb-5 justify-center">
-                    <h1 class="dark:text-surface-600 font-medium text-3xl">Create an Account</h1>
-                </div>
-            </template>
-            <template #content>
-                <form @submit.prevent="submit">
-                    <div class="grid grid-cols-2 gap-5">
-                        <div>
-                            <InputText fluid placeholder="First Name" v-model="form.first_name" id="first_name" :class="{ '!border-red-500': form.errors.first_name }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.first_name">{{ form.errors.first_name }}</Message>
-                        </div>
-                        <div>
-                            <InputText fluid placeholder="Last Name" v-model="form.last_name" id="last_name" :class="{ '!border-red-500': form.errors.last_name }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.last_name">{{ form.errors.last_name }}</Message>
-                        </div>
-                        <div>
-                            <InputMask mask="999-999-9999" fluid placeholder="Phone #" v-model="form.phone_number" id="phone_number" :class="{ '!border-red-500': form.errors.phone_number }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.phone_number">{{ form.errors.phone_number }}</Message>
-                        </div>
-                        <div>
-                            <InputText fluid placeholder="Email" v-model="form.email" id="email" :class="{ '!border-red-500': form.errors.email }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.email">{{ form.errors.email }}</Message>
-                        </div>
-                        <div>
-                            <Password fluid placeholder="Password" v-model="form.password" id="password" :class="{ '!border-red-500': form.errors.password }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.password">{{ form.errors.password }}</Message>
-                        </div>
-                        <div>
-                            <Password fluid placeholder="Confirm Password" v-model="form.password_confirmation" id="password_confirmation" :class="{ '!border-red-500': form.errors.password_confirmation }" />
-                            <Message variant="simple" size="small" severity="error" v-if="form.errors.password_confirmation">{{ form.errors.password_confirmation }}</Message>
-                        </div>
+
+        <!-- CHANGED: Made the outer wrapper responsive with padding and full-width behavior -->
+        <div class="w-full px-4 sm:px-6">
+            <!-- CHANGED: Replaced fixed width with responsive max-width and full width -->
+            <Card class="mx-auto w-full max-w-3xl">
+                <template #title>
+                    <!-- CHANGED: Improved header spacing and responsive text sizing -->
+                    <div class="mb-5 flex justify-center text-center">
+                        <h1 class="text-2xl font-medium dark:text-surface-600 sm:text-3xl">
+                            Create an Account
+                        </h1>
                     </div>
-                    <div class="mt-5 flex items-center justify-end gap-2">
-                        <Link
-                            :href="route('login')"
-                            class="rounded-md text-sm text-surface-600 underline hover:text-surface-900 dark:text-surface-500 dark:hover:text-surface-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                </template>
+
+                <template #content>
+                    <form @submit.prevent="submit">
+                        <!-- CHANGED: Stack fields on mobile, two columns on medium+ screens -->
+                        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <div>
+                                <InputText
+                                    id="first_name"
+                                    v-model="form.first_name"
+                                    fluid
+                                    placeholder="First Name"
+                                    :class="{ '!border-red-500': form.errors.first_name }"
+                                />
+                                <Message
+                                    v-if="form.errors.first_name"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.first_name }}
+                                </Message>
+                            </div>
+
+                            <div>
+                                <InputText
+                                    id="last_name"
+                                    v-model="form.last_name"
+                                    fluid
+                                    placeholder="Last Name"
+                                    :class="{ '!border-red-500': form.errors.last_name }"
+                                />
+                                <Message
+                                    v-if="form.errors.last_name"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.last_name }}
+                                </Message>
+                            </div>
+
+                            <div>
+                                <InputMask
+                                    id="phone_number"
+                                    v-model="form.phone_number"
+                                    mask="999-999-9999"
+                                    fluid
+                                    placeholder="Phone #"
+                                    :class="{ '!border-red-500': form.errors.phone_number }"
+                                />
+                                <Message
+                                    v-if="form.errors.phone_number"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.phone_number }}
+                                </Message>
+                            </div>
+
+                            <div>
+                                <InputText
+                                    id="email"
+                                    v-model="form.email"
+                                    fluid
+                                    placeholder="Email"
+                                    :class="{ '!border-red-500': form.errors.email }"
+                                />
+                                <Message
+                                    v-if="form.errors.email"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.email }}
+                                </Message>
+                            </div>
+
+                            <div>
+                                <Password
+                                    id="password"
+                                    v-model="form.password"
+                                    fluid
+                                    toggleMask
+                                    :feedback="false"
+                                    placeholder="Password"
+                                    :class="{ '!border-red-500': form.errors.password }"
+                                />
+                                <Message
+                                    v-if="form.errors.password"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.password }}
+                                </Message>
+                            </div>
+
+                            <div>
+                                <Password
+                                    id="password_confirmation"
+                                    v-model="form.password_confirmation"
+                                    fluid
+                                    toggleMask
+                                    :feedback="false"
+                                    placeholder="Confirm Password"
+                                    :class="{
+                                        '!border-red-500': form.errors.password_confirmation,
+                                    }"
+                                />
+                                <Message
+                                    v-if="form.errors.password_confirmation"
+                                    variant="simple"
+                                    size="small"
+                                    severity="error"
+                                >
+                                    {{ form.errors.password_confirmation }}
+                                </Message>
+                            </div>
+                        </div>
+
+                        <!-- CHANGED: Made footer stack on mobile and align right on larger screens -->
+                        <div
+                            class="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end"
                         >
-                            Already registered?
-                        </Link>
-                        <Button label="Register" type="submit" @click="submit" />
-                    </div>
-        
-                    <!-- <div class="mt-4 flex items-center justify-end">
-        
-                        <PrimaryButton
-                            class="ms-4"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                        >
-                            Register
-                        </PrimaryButton>
-                    </div> -->
-                </form>
-            </template>
-        </Card>
+                            <Link
+                                :href="route('login')"
+                                class="text-center text-sm text-surface-600 underline hover:text-surface-900 dark:text-surface-500 dark:hover:text-surface-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-left"
+                            >
+                                Already registered?
+                            </Link>
+
+                            <!-- CHANGED: Removed duplicate click handler and made button full-width on mobile -->
+                            <Button
+                                label="Register"
+                                type="submit"
+                                :loading="form.processing"
+                                class="w-full sm:w-auto"
+                            />
+                        </div>
+                    </form>
+                </template>
+            </Card>
+        </div>
     </GuestLayout>
 </template>
+
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Message, InputText, Password, Button, Card, InputMask } from 'primevue';
+import GuestLayout from '@/Layouts/GuestLayout.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import { Message, InputText, Password, Button, Card, InputMask } from 'primevue'
+
 const form = useForm({
     first_name: '',
     last_name: '',
@@ -72,12 +174,11 @@ const form = useForm({
     role: 'user',
     password: '',
     password_confirmation: '',
-});
+})
 
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+    })
+}
 </script>
-
