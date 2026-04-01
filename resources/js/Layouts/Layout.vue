@@ -298,8 +298,8 @@ const page = usePage()
 const toast = useToast()
 const appStore = useAppStore()
 
-const successSound = new Audio('/storage/sounds/success.mp3')
-const errorSound = new Audio('/storage/sounds/error.mp3')
+const successSound = new Audio('/sounds/success.mp3')
+const errorSound = new Audio('/sounds/error.mp3')
 
 const expandedSidebarWidth = 208
 const collapsedSidebarWidth = 72

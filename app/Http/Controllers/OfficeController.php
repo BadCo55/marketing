@@ -158,7 +158,19 @@ class OfficeController extends Controller
      */
     public function destroy(Office $office)
     {
-        //
+        // CHANGED: centralized "in use" logic
+        $inUse =
+            $office->visits()->exists();
+
+        if ($inUse) {
+            return back()->with([
+                'error' => 'Office is currently in use and cannot be deleted.',
+            ]);
+        }
+
+        $office->delete();
+
+        return redirect()->route('office.index')->with('success', 'The office has been deleted successfully.');
     }
 
     /**

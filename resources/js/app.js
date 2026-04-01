@@ -12,6 +12,7 @@ import Aura from '@primevue/themes/aura';
 import { definePreset } from '@primevue/themes';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
+import { ConfirmationService } from 'primevue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Diversified Home Inspections';
 const pinia = createPinia();
@@ -724,6 +725,7 @@ createInertiaApp({
                 }
             })
             .use(ToastService)
+            .use(ConfirmationService)
             .use(pinia)
             .mount(el);
     },

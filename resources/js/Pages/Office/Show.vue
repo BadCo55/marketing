@@ -45,6 +45,7 @@
                             @click="goToTab(2)"
                         />
                         <Button label="Notes" icon="pi pi-file-edit" @click="goToTab(4)" />
+                        <Button label="Delete Office" icon="pi pi-trash" @click="onDeleteOffice" />
                     </div>
                 </div>
             </div>
@@ -823,6 +824,8 @@
             </div>
         </form>
     </Dialog>
+
+    <ConfirmDialog />
 </template>
 
 <script setup>
@@ -852,6 +855,8 @@ import {
     Message,
     Tag,
     Divider,
+    useConfirm,
+    ConfirmDialog
 } from 'primevue'
 import axios from 'axios'
 
@@ -860,6 +865,7 @@ const office = ref(page.props.office)
 const users = page.props.users ?? []
 const showImageDialog = ref(false)
 const showCreateNoteDialog = ref(false)
+const confirm = useConfirm();
 
 const realtors = computed(() => office.value.realtors ?? [])
 
@@ -1074,4 +1080,39 @@ const tabs = computed(() => [
 const onUpdateOffice = (newOffice) => {
     office.value = newOffice
 }
+
+const confirmDeleteOffice = () => {
+    return new Promise((resolve) => {
+        confirm.require({
+            header: 'Delete Office',
+            message: `Are you sure you want to delete ${office.value.parent_company}${office.value.office_name ? ` - ${office.value.office_name}` : ''}? This action cannot be undone.`,
+            icon: 'pi pi-exclamation-triangle',
+            rejectLabel: 'Cancel',
+            acceptLabel: 'Delete',
+            rejectProps: {
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptProps: {
+                severity: 'danger',
+            },
+            accept: () => resolve(true),
+            reject: () => resolve(false),
+            onHide: () => resolve(false),
+        })
+    })
+}
+
+// CHANGED: awaitable delete flow
+const onDeleteOffice = async () => {
+    const confirmed = await confirmDeleteOffice()
+
+    if (!confirmed) return
+
+    router.delete(route('office.destroy', office.value.id), {
+        preserveScroll: true,
+    })
+}
+
+
 </script>
